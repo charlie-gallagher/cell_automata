@@ -48,7 +48,8 @@ convert out.pbm -filter Point -resize 800% out.png
 ``` 
 
 This converts to PNG at 800% size with no loss in the sharpness of the pixels.
-Note that the order and capitalization of the options matters.  
+Note that the order and capitalization of the options matters. I've done this for 
+all rules starting with a single bit, which you can browse in the gallery.
 
 
 ### To-do
