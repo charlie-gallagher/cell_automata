@@ -2,8 +2,8 @@
 
 ### Overview
 This program implements one-dimensional elementary cellular automata with
-nearest neighbor vision. It's written in C for GCC and uses the `unistd`
-argument parsing library, so it might not work on Windows builds. 
+nearest neighbor vision. It's written in C for GCC and uses `unistd`'s `getopt`
+argument parser, so you'll need a workaround for Windows. 
 
 I haven't written a makefile yet. Compile with this command in the base folder. 
 
