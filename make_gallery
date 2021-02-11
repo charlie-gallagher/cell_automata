@@ -1,0 +1,11 @@
+#!/bin/bash
+
+i=0
+while [ $i -lt 256 ]
+do
+	file=$(printf "rule_%03d" $i)
+	./cell -o ./gallery/${file}.pbm -r ${i} -h 100 -w 100 -i 1
+	convert ./gallery/${file}.pbm -filter Point -resize 400% ./gallery/${file}.png
+	rm ./gallery/${file}.pbm
+	i=$(expr $i + 1)
+done

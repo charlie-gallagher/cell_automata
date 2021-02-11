@@ -39,6 +39,17 @@ The defaults for these are:
 	Output		stdout
 ```
 
+### Image Processing
+The images export as `.pbm`, but this is a short step from PNG, for example. You
+can use `imagemagick`'s `convert` to convert to PNG and resize. 
+
+```
+convert out.pbm -filter Point -resize 800% out.png
+``` 
+
+This converts to PNG at 800% size with no loss in the sharpness of the pixels.
+Note that the order and capitalization of the options matters.  
+
 
 ### To-do
 
