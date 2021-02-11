@@ -126,5 +126,37 @@ default initial positions that can be generated for any size line.
 Charlie Gallagher, 2021
 ```
 
+# Selected Gallery
+All 256 images are available in the gallery folder. Here, I selected some of the more
+interesting patterns. The images are 100x100 (expanded to 400x400 px) with a single
+initial position. 
+
+#### Rule 13
+![rule 13](https://github.com/charlie-gallagher/cell_automata/blob/main/gallery/rule_013.png)
+
+#### Rule 18
+![rule 18](https://github.com/charlie-gallagher/cell_automata/blob/main/gallery/rule_018.png)
+
+#### Rule 30
+![rule 30](https://github.com/charlie-gallagher/cell_automata/blob/main/gallery/rule_030.png)
+
+#### Rule 45
+![rule 45](https://github.com/charlie-gallagher/cell_automata/blob/main/gallery/rule_045.png)
+
+#### Rule 57
+![rule 57](https://github.com/charlie-gallagher/cell_automata/blob/main/gallery/rule_057.png)
+
+#### Rule 73
+![rule 73](https://github.com/charlie-gallagher/cell_automata/blob/main/gallery/rule_073.png)
+
+#### Rule 129
+![rule 129](https://github.com/charlie-gallagher/cell_automata/blob/main/gallery/rule_129.png)
+
+#### Rule 153
+![rule 153](https://github.com/charlie-gallagher/cell_automata/blob/main/gallery/rule_153.png)
+
+#### Rule 193
+![rule 193](https://github.com/charlie-gallagher/cell_automata/blob/main/gallery/rule_193.png)
+
 --- 
 Charlie Gallagher, 2021
