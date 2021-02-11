@@ -1,0 +1,118 @@
+# Elementary Cellular Automata
+
+### Overview
+This program implements one-dimensional elementary cellular automata with
+nearest neighbor vision. It's written in C for GCC and uses the `unistd`
+argument parsing library, so it might not work on Windows builds. 
+
+I haven't written a makefile yet. Compile with this command in the base folder. 
+
+```
+gcc -o ./cell ./src/* -I ./include
+```
+
+You can print 1's and 0's to `stdout` or you can export a `.pbm` image where
+every 1 becomes a black pixel and every 0 becomes a white pixel. For the moment,
+file extensions are fairly 'dumb' in that the user is responsible for using an
+appropriate filename and extension. 
+
+The available settings are: 
+
+- **Width** The number of cells in a line and the width in pixels of the output
+- **Height** The number of timesteps to advance and the height in pixels of the
+  output. 
+- **Rule** `cell` can handle any of the 256 possible rules from 0 to 255.
+- **Initial position** This controls the first line. There are two initial
+  positions: random and single. A random initial position has random 1's and 0's
+across the first line. A single initial position has a single 1 in the center of
+the line; all other cells are zero. 
+- **Output file** Must be a valid filename and have the extension `.pbm`. 
+
+
+The defaults for these are: 
+
+```
+	Height		25
+	Width		50
+	Rule		26
+	Initial		1
+	Output		stdout
+```
+
+
+### To-do
+
+- Better output file handling
+- Export to PNG rather than PBM
+- Write Windows CLI 
+
+### Help file
+```
+Elementary cellular automata
+
+cell [--help] [-h height] [-w width] [-i initial_position] [-r rule] 
+	[-o output_file]
+
+	--help		Print this help
+	-h 		Number of timesteps [1, 19999]
+	-w 		Width of the cell line [1, 19999]
+	-i 		Initial position** [0,1]
+	-r 		Rule [0,255]
+	-o		Output file***
+
+**Takes 1 for a single '1' in the middle of the row and 0 for a random row.
+***Output file must have the extension '.pbm'
+
+Defaults: 
+	Height		25
+	Width		50
+	Rule		26
+	Initial		1
+	Output		stdout
+
+Details
+-------
+This program implements one-dimensional cellular automata with uniform
+treatment and vision of 1. Consider a circular line of 1's and 0's, so that
+each 1 and 0 has exactly one neighbor. 
+
+	t=0	011001011000010
+
+You must imagine that the elements on the left and right are neighbors. This
+is timestep zero. Each cell makes a decision about what it will be at the next
+timestep, a '1' or a '0'. It makes this decision by considering itself and its
+two nearest neighbors and consulting a rule. For example:
+
+			 v
+	Situation	010
+	Result  	 0
+
+When a 1 has neighbors 0 and 0, it changes to a zero. There are 8 permutations
+of 3 bits, so a complete rule must account for 8 situations. 
+
+	111	110	101	100	011	010	001	000
+	 1	 0	 0	 1 	 0	 1	 1	 1
+
+This is a complete ruleset. Rules are composed of 8 bits, so they can be (and
+traditionally are) represented as decimal integers from 0 to 255. Also by
+tradition, the possible 3-bit inputs are given in reverse order from 111 to
+000 in decreasing base-2 integers. This gives a standard set of 256 rules
+which are referred to by their decimal equivalents. The above rule is Rule 151
+(0b10010111 = 0n151). 
+
+Each cell makes its own decision, and then the next timestep arrives and the
+cells change simultaneously. The initial position makes a large difference on
+the outcome. Starting with a single 1 in the middle of the line (-i 1) often
+has pleasing but predictable results. Starting with a random row, on the other
+hand, is less consistent but has potential for more interesting patterns.
+Also, the result is different every time. Unfortunately, because the number of
+cells in a row is customizable, there is no simple way to add support for
+other initial arrangements. It's possible that in the future, I will add more
+default initial positions that can be generated for any size line.
+
+-----------------------
+Charlie Gallagher, 2021
+```
+
+--- 
+Charlie Gallagher, 2021
