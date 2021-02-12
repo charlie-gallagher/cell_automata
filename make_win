@@ -2,6 +2,8 @@
 # Charlie Gallagher, 2021
 #
 # Windows build
+
+# Macros
 CC = cl.exe
 TARGET = cell
 SRCDIR = src
@@ -11,6 +13,7 @@ LIBDIR = lib
 CFLAGS = /I $(INCDIR) /I $(LIBDIR)
 DBGFLAGS = /Zi /Fd:$(TARGET).pdb
 
+# Description blocks
 {$(SRCDIR)}.c{$(OBJDIR)}.obj::
 	$(CC) $(CFLAGS) /Fo:$(OBJDIR)\ $(DBGFLAGS) /c $<
 

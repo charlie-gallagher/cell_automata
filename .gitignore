@@ -3,3 +3,7 @@ notes.md
 cell
 *.obj
 *.o
+*.exe
+*.ilk
+*.pdb
+*.lib
