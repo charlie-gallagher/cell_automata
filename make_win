@@ -3,21 +3,27 @@
 #
 # Windows build
 CC = cl.exe
-CFLAGS = /I .\include /I .\lib /Zi /Fd:cell.pdb
+TARGET = cell
+SRCDIR = src
+INCDIR = include
+OBJDIR = obj
+LIBDIR = lib
+CFLAGS = /I $(INCDIR) /I $(LIBDIR)
+DBGFLAGS = /Zi /Fd:$(TARGET).pdb
 
-{src}.c.obj:
-	$(CC) $(CFLAGS) /c $<
+{$(SRCDIR)}.c{$(OBJDIR)}.obj::
+	$(CC) $(CFLAGS) /Fo:$(OBJDIR)\ $(DBGFLAGS) /c $<
 
-all: lib\getopt_win.lib cell.exe
+all: lib\getopt_win.lib $(TARGET).exe
 
 lib\getopt_win.lib: lib\getopt.obj
 	lib /OUT:lib\getopt_win.lib lib\getopt.obj
 
 lib\getopt.obj: lib\getopt.c
-	$(CC) $(CFLAGS) /c /Fo:lib\ $**
+	$(CC) $(CFLAGS) $(DBGFLAGS) /c /Fo:$(LIBDIR)\ $**
 
-cell.exe: cell.obj cell_link.obj cell_args.obj lib\getopt_win.lib
-	$(CC) $(CFLAGS) $**
+cell.exe: $(OBJDIR)\*.obj $(LIBDIR)\getopt_win.lib
+	$(CC) $(CFLAGS) $(DBGFLAGS) $**
 
 clean:
-	del *.obj *.lib *.pdb lib\*.lib lib\*.obj cell.exe *.ilk
+	del *.obj *.lib *.pdb lib\*.lib lib\*.obj cell.exe *.ilk obj\*.obj
