@@ -32,13 +32,17 @@ The defaults for these are:
 
 
 ### Build
-`cell` runs on both Linux and Windows, and it supports both `gcc` and `cl` (Microsoft C/C++ Compiler). The two compilers use slightly different builds and have different commandline interfaces. For `gcc`, compile with the following command:
+`cell` runs on both Linux and Windows, and it supports both `gcc` and `cl` 
+(Microsoft C/C++ Compiler). The two compilers use slightly different builds 
+and have different commandline interfaces. For `gcc`, compile with the 
+following command:
 
 ```
-gcc -o ./cell ./src/* -I ./include
+make -f make_linux
 ```
 
-The commandline interface follows the POSIX standard of `-x`'s. The arguments are parsed with `getopt` from `<unistd.h>`.
+The commandline interface follows the POSIX standard of `-x`'s. The arguments 
+are parsed with `getopt` from `<unistd.h>`.
 
 For Microsoft's C/C++ Compiler, there is a makefile called `make_win`. Build with
  
@@ -46,7 +50,9 @@ For Microsoft's C/C++ Compiler, there is a makefile called `make_win`. Build wit
 nmake /f make_win
 ```
 
-The commandline interface uses the Windows typical `/x` style flags. I built this parser myself, but it should support normal use fine because the commandline syntax is extremely simple.
+The commandline interface uses the Windows typical `/x` style flags. I built this 
+parser myself, but it should support normal use fine because the commandline 
+syntax is extremely simple.
 
 
 
