@@ -1,17 +1,23 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
-#include <unistd.h>
 #include <cell_args.h>
+
+
+#if defined(_MSC_VER)
+#include <getopt.h>
+#else
+#include <unistd.h>
+#endif
 
 
 void print_help(void) {
 	char buf[90];
 	FILE *help;
 
-	if ((help = fopen("./doc/cell_help.txt", "r")) == NULL) 
+	if ((help = fopen("./doc/cell_help.txt", "r")) == NULL)
 		fprintf(stderr, "Error opening help file.\n");
-	
+
 	else {
 		while(fgets(buf, 89, help) != NULL) {
 			fputs(buf, stdout);
@@ -36,7 +42,7 @@ int carg_init(CARGS *pcargs)
 	I_POS = 1;
 	OUT = NULL;
 
-	return 0;	
+	return 0;
 }
 
 int carg_parse(CARGS *pcargs, int argc, char **argv)
@@ -67,7 +73,12 @@ int carg_parse(CARGS *pcargs, int argc, char **argv)
 					OUT = optarg;
 					break;
 				  }
-			case '?': {
+			#ifdef _MSC_VER
+			case '#':
+			#else
+			case '?':
+			#endif
+			{
 				if (optopt == 'w' ||
 				    optopt == 'h' ||
 				    optopt == 'r' ||
@@ -92,7 +103,7 @@ int carg_parse(CARGS *pcargs, int argc, char **argv)
 }
 
 
-int carg_check(CARGS *pcargs) 
+int carg_check(CARGS *pcargs)
 {
 	/* Check ranges */
 	if (HEIGHT < 1 || HEIGHT > 20000) {
@@ -112,8 +123,6 @@ int carg_check(CARGS *pcargs)
 		return -1;
 	}
 
-	
+
 	return 0;
 }
-
-

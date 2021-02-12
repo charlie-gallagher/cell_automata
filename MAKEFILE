@@ -1,0 +1,23 @@
+# Makefile for cellular automata project
+# Charlie Gallagher, 2021
+#
+# Windows build
+CC = cl.exe
+CFLAGS = /I .\include /I .\lib /Zi /Fd:cell.pdb
+
+{src}.c.obj:
+	$(CC) $(CFLAGS) /c $<
+
+all: lib\getopt_win.lib cell.exe
+
+lib\getopt_win.lib: lib\getopt.obj
+	lib /OUT:lib\getopt_win.lib lib\getopt.obj
+
+lib\getopt.obj: lib\getopt.c
+	$(CC) $(CFLAGS) /c /Fo:lib\ $**
+
+cell.exe: cell.obj cell_link.obj cell_args.obj lib\getopt_win.lib
+	$(CC) $(CFLAGS) $**
+
+clean:
+	del *.obj *.lib *.pdb lib\*.lib lib\*.obj cell.exe *.ilk
