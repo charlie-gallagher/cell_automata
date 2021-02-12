@@ -1,2 +1,5 @@
 *.pbm
 notes.md
+cell
+*.obj
+*.o
