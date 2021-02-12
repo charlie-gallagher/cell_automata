@@ -15,8 +15,13 @@ void print_help(void) {
 	char buf[90];
 	FILE *help;
 
-	if ((help = fopen("./doc/cell_help.txt", "r")) == NULL)
+	#if defined(_MSC_VER)
+	if ((help = fopen("./doc/cell_help_win.txt", "r")) == NULL)
 		fprintf(stderr, "Error opening help file.\n");
+	#else
+	if ((help = fopen("./doc/cell_help_linux.txt", "r")) == NULL)
+		fprintf(stderr, "Error opening help file.\n");
+	#endif
 
 	else {
 		while(fgets(buf, 89, help) != NULL) {

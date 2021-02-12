@@ -1,6 +1,6 @@
 Elementary cellular automata
 
-cell [--help] [-h height] [-w width] [-i initial_position] [-r rule] 
+cell [--help] [-h height] [-w width] [-i initial_position] [-r rule]
 	[-o output_file]
 
 	--help		Print this help
@@ -13,7 +13,7 @@ cell [--help] [-h height] [-w width] [-i initial_position] [-r rule]
 **Takes 1 for a single '1' in the middle of the row and 0 for a random row.
 ***Output file must have the extension '.pbm'
 
-Defaults: 
+Defaults:
 	Height		25
 	Width		50
 	Rule		26
@@ -24,7 +24,7 @@ Details
 -------
 This program implements one-dimensional cellular automata with uniform
 treatment and vision of 1. Consider a circular line of 1's and 0's, so that
-each 1 and 0 has exactly one neighbor. 
+each 1 and 0 has exactly one neighbor.
 
 	t=0	011001011000010
 
@@ -38,7 +38,7 @@ two nearest neighbors and consulting a rule. For example:
 	Result  	 0
 
 When a 1 has neighbors 0 and 0, it changes to a zero. There are 8 permutations
-of 3 bits, so a complete rule must account for 8 situations. 
+of 3 bits, so a complete rule must account for 8 situations.
 
 	111	110	101	100	011	010	001	000
 	 1	 0	 0	 1 	 0	 1	 1	 1
@@ -48,7 +48,7 @@ traditionally are) represented as decimal integers from 0 to 255. Also by
 tradition, the possible 3-bit inputs are given in reverse order from 111 to
 000 in decreasing base-2 integers. This gives a standard set of 256 rules
 which are referred to by their decimal equivalents. The above rule is Rule 151
-(0b10010111 = 0n151). 
+(0b10010111 = 0n151).
 
 Each cell makes its own decision, and then the next timestep arrives and the
 cells change simultaneously. The initial position makes a large difference on
