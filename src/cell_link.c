@@ -1,30 +1,31 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <time.h>
-#include <cell_link.h>
+#include "cell_link.h"
 
-/* 
+/*
  * This file contains methods for the individual cells and the linked list as a
- * whole. For a specification of the linked list, see `cell_link.h`. 
+ * whole. For a specification of the linked list, see `cell_link.h`.
  *
- * The structure has elements: 
+ * The structure has elements:
  * 	- previous (pointer to CELL)
  * 	- next (pointer to CELL)
  * 	- current (char)
  * 	- next_timestep (char)
  *
- * The structure is typedef'd as CELL. 
+ * The structure is typedef'd as CELL.
  */
 
 /* Initialize cell
  *
  * Inputs three cell pointers, returns 1 for success, 0 for failure
  * Third pointer is usually NULL unless it's the last element, in which
- * case it gets set to the first element's address. 
+ * case it gets set to the first element's address.
  *
  * type is one of RAND_LINE or ONE_LINE, defined in this file's header
  */
-int cell_init(CELL *self, CELL *previous, CELL *next, int type) 
+int cell_init(CELL *self, CELL *previous, CELL *next, int type)
 {
 	self->previous = previous;
 	self->next = next;
@@ -52,13 +53,13 @@ int cell_init(CELL *self, CELL *previous, CELL *next, int type)
 
 
 /* Initialize first line
- * 
- * Inputs head pointer and a number of elements to initialize. Memory is 
+ *
+ * Inputs head pointer and a number of elements to initialize. Memory is
  * allocated all at once for every pointer, with `head` being the first link
  *
  * type is either RAND_LINE (random) or ONE_LINE (single)
  */
-CELL *line_init(int n, int type) 
+CELL *line_init(int n, int type)
 {
 	CELL *head;
 	CELL *new_elem;
@@ -87,7 +88,7 @@ CELL *line_init(int n, int type)
 
 	/* Initialize 'next' of last element to 'first' */
 	new_elem--;  // Iterated again at end, so set it back to last element
-	new_elem->next = head;	
+	new_elem->next = head;
 	head->previous = new_elem;
 
 	if (type == ONE_LINE) {
@@ -99,10 +100,10 @@ CELL *line_init(int n, int type)
 	return head;
 }
 
-char cell_eval(CELL *self, char rule) 
+char cell_eval(CELL *self, char rule)
 {
-	char value = 2 * self->current + 
-		1 * (self->previous)->current + 
+	char value = 2 * self->current +
+		1 * (self->previous)->current +
 		4 * (self->next)->current;
 
 	return (rule >> value) & 1;
@@ -110,9 +111,9 @@ char cell_eval(CELL *self, char rule)
 
 
 
-int line_eval(CELL *head, char rule, int n) 
+int line_eval(CELL *head, char rule, int n)
 {
-	int i; 
+	int i;
 	CELL *cell = head;
 
 	for (i = 0; i < n; i++) {
@@ -120,24 +121,24 @@ int line_eval(CELL *head, char rule, int n)
 		cell++;
 	}
 
-	return 0;	
-}
-
-
-int line_update(CELL *head, int n) 
-{
-	int i; 
-	CELL *cell = head;
-
-	for (i = 0; i < n; i++) {
-		cell->current = cell->next_timestep;	
-		cell++;
-	}	
 	return 0;
 }
 
 
-void line_print(CELL *head, FILE *fp, int n) 
+int line_update(CELL *head, int n)
+{
+	int i;
+	CELL *cell = head;
+
+	for (i = 0; i < n; i++) {
+		cell->current = cell->next_timestep;
+		cell++;
+	}
+	return 0;
+}
+
+
+void line_print(CELL *head, FILE *fp, int n)
 {
 	int i;
 	CELL *cell = head;
@@ -154,7 +155,7 @@ void line_print(CELL *head, FILE *fp, int n)
  * This is the key function of the program. It takes the initialized data and
  * runs the `length` iterations and prints them to the screen.
  */
-int eval_timesteps(CELL *head, char rule, int width, int length) 
+int eval_timesteps(CELL *head, char rule, int width, int length)
 {
 	int i;
 
@@ -168,7 +169,11 @@ int eval_timesteps(CELL *head, char rule, int width, int length)
 }
 
 
-int make_plain_pbm(CELL *head, char *file, char rule, int width, int length) 
+/* Writes a 'plain' PBM image, whic consists of ASCII 1s and 0s in an array
+ *
+ *	This is now defunct in favor of `make_raw_pbm`
+ */
+int make_plain_pbm(CELL *head, char *file, char rule, int width, int length)
 {
 	int i;
 	FILE *fp;
@@ -192,7 +197,12 @@ int make_plain_pbm(CELL *head, char *file, char rule, int width, int length)
 }
 
 
-/* Convert to raw PBM format */
+/* Convert to raw PBM format
+ *
+ *	Raw PBM format is a magick number (P4) followed by width and height and
+ *	an array of bits. If a bit is on, the square is black; otherwise, it's
+ *	white. Efficient, but simple.
+ */
 int make_raw_pbm(CELL *head, char *file, char rule, int width, int length)
 {
 	int i;
@@ -244,13 +254,13 @@ void line_convert(CELL *head, unsigned char *line, int width)
 	int line_width = width / 8;
 	if (width % 8 > 0) line_width++;
 
-	
+
 
 	/* Convert line to bytes 8 at a time */
 	for (i = 0; i < line_width; i++) {
 		/* Ensure don't overread line */
-		n = 8; 
-		if ((i+1) * 8 > width) 
+		n = 8;
+		if ((i+1) * 8 > width)
 			n = width - 8 * i;
 
 		/* Fill array with N bits */
@@ -264,16 +274,16 @@ void line_convert(CELL *head, unsigned char *line, int width)
 }
 
 
-unsigned char bytes_to_bits(char a[], int n) 
+unsigned char bytes_to_bits(char a[], int n)
 {
 	unsigned char out = 0;
 	int i;
-	
+
 	/* Pad right-side of array with zeros if incomplete byte */
 	if (n < 8) {
 		for (i = n; i < 8; i++)
 			a[i] = 0;
-	}	
+	}
 
 	for (i = 0; i < 8; i++) {
 		out += (a[i] << (7 - i));
