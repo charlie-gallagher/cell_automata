@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
+#include <string.h>
 #include "cell_args.h"
 
 
@@ -46,6 +47,7 @@ int carg_init(CARGS *pcargs)
 	RULE = 26;
 	I_POS = 1;
 	OUT = NULL;
+	OUTI = 0;
 
 	return 0;
 }
@@ -129,5 +131,37 @@ int carg_check(CARGS *pcargs)
 	}
 
 
+	/* Check filename for correctness */
+	if (!file_valid(OUT)) {
+		printf("adding .pbm to filename\n"); // DELETE ME
+		
+		char *new_filename;
+		new_filename = malloc(strlen(OUT) + 5);
+		strcpy(new_filename, OUT);
+		strcat(new_filename, ".pbm");
+		
+		printf("New filename: %s\n", new_filename); // DELETE ME
+		
+		OUT = new_filename;
+		OUTI = 1;
+	}
+
+
 	return 0;
 }
+
+
+
+int file_valid(char *filename) {
+	int len = strlen(filename);
+
+	if (filename[len-1] == 'm' &&
+	    filename[len-2] == 'b' &&
+	    filename[len-3] == 'p' &&
+	    filename[len-4] == '.')
+		return 1;
+	else
+		return 0;
+}
+
+

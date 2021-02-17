@@ -8,6 +8,7 @@ typedef struct {
 	unsigned char rule;
 	char i_pos;
 	char *out;
+	char out_ind;
 } CARGS;
 
 
@@ -16,11 +17,13 @@ typedef struct {
 #define RULE pcargs->rule
 #define I_POS pcargs->i_pos
 #define OUT pcargs->out
+#define OUTI pcargs->out_ind
 
 void print_help(void);
 int carg_init(CARGS *pcargs);
 int carg_parse(CARGS *pcargs, int argc, char **argv);
 int carg_check(CARGS *pcargs);
+int file_valid(char *filename);
 
 
 
