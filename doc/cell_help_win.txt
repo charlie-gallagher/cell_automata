@@ -31,7 +31,7 @@ each 1 and 0 has exactly one neighbor.
 You must imagine that the elements on the left and right are neighbors. This
 is timestep zero. Each cell makes a decision about what it will be at the next
 timestep, a '1' or a '0'. It makes this decision by considering itself and its
-two nearest neighbors and consulting a rule. For example:
+two nearest neighbors and consulting a rule such as:
 
 			 v
 	Situation	010

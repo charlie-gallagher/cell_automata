@@ -32,28 +32,72 @@ The defaults for these are:
 
 
 ### Build
-`cell` runs on both Linux and Windows, and it supports both `gcc` and `cl` 
-(Microsoft C/C++ Compiler). The two compilers use slightly different builds 
-and have different commandline interfaces. For `gcc`, compile with the 
+`cell` runs on both Linux and Windows, and it supports both `gcc` and `cl`
+(Microsoft C/C++ Compiler). The two compilers use slightly different builds
+and have different commandline interfaces. For `gcc`, compile with the
 following command:
 
 ```
 make -f make_linux
 ```
 
-The commandline interface follows the POSIX standard of `-x`'s. The arguments 
+The commandline interface follows the POSIX standard of `-x`'s. The arguments
 are parsed with `getopt` from `<unistd.h>`.
 
 For Microsoft's C/C++ Compiler, there is a makefile called `make_win`. Build with
- 
+
 ```
 nmake /f make_win
 ```
 
-The commandline interface uses the Windows typical `/x` style flags. I built this 
-parser myself, but it should support normal use fine because the commandline 
+The commandline interface uses the Windows typical `/x` style flags. I built this
+parser myself, but it should support normal use fine because the commandline
 syntax is extremely simple.
 
+
+# Usage
+
+### Examples
+By default, running `cell` will evaluate to `stdout` using the defaults. This is equivalent to:
+
+```
+cell -h 25 -w 50 -r 26 -i 1
+
+height: 25
+width: 50
+initial: 1
+rule: 26
+output: (null)
+000: 00000000000000000000000001000000000000000000000000
+001: 00000000000000000000000010100000000000000000000000
+002: 00000000000000000000000100010000000000000000000000
+003: 00000000000000000000001010101000000000000000000000
+004: 00000000000000000000010000000100000000000000000000
+005: 00000000000000000000101000001010000000000000000000
+006: 00000000000000000001000100010001000000000000000000
+007: 00000000000000000010101010101010100000000000000000
+008: 00000000000000000100000000000000010000000000000000
+009: 00000000000000001010000000000000101000000000000000
+010: 00000000000000010001000000000001000100000000000000
+011: 00000000000000101010100000000010101010000000000000
+012: 00000000000001000000010000000100000001000000000000
+013: 00000000000010100000101000001010000010100000000000
+014: 00000000000100010001000100010001000100010000000000
+015: 00000000001010101010101010101010101010101000000000
+016: 00000000010000000000000000000000000000000100000000
+017: 00000000101000000000000000000000000000001010000000
+018: 00000001000100000000000000000000000000010001000000
+019: 00000010101010000000000000000000000000101010100000
+020: 00000100000001000000000000000000000001000000010000
+021: 00001010000010100000000000000000000010100000101000
+022: 00010001000100010000000000000000000100010001000100
+023: 00101010101010101000000000000000001010101010101010
+024: 01000000000000000100000000000000010000000000000001
+```
+
+This evaluates a line of 50 cells 25 times using rule 26, beginning with a single '1' cell in the center of the line. If you instead want to see what will happen with a random starting position, set `-i 0`. Use `cell --help` to see a help file. The help file, which is also included below, gives a description of the valid arguments along with a description of elementary cellular automata.
+
+If an output file is specified, it is written as a [Raw PBM file](http://netpbm.sourceforge.net/doc/pbm.html). This is easily converted to PNG with ImageMagick, as shown below. The user bears complete responsibility for file naming at the moment, although this is going to change soon. 
 
 
 ### Image Processing
@@ -110,9 +154,9 @@ each 1 and 0 has exactly one neighbor.
 You must imagine that the elements on the left and right are neighbors. This
 is timestep zero. Each cell makes a decision about what it will be at the next
 timestep, a '1' or a '0'. It makes this decision by considering itself and its
-two nearest neighbors and consulting a rule. For example:
+two nearest neighbors and consulting a rule such as:
 
-			 v
+                 v
 	Situation	010
 	Result  	 0
 
