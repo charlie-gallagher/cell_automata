@@ -17,7 +17,9 @@ The available settings are:
   positions: random and single. A random initial position has random 1's and 0's
 across the first line. A single initial position has a single 1 in the center of
 the line; all other cells are zero.
-- **Output file** Must be a valid filename and have the extension `.pbm`.
+- **Output file** Must be a valid filename and have the extension `.pbm`. If there is
+no extension, `.pbm` is added. If there is a different extension, `.pbm` is added
+on top of it.
 
 
 The defaults for these are:
@@ -115,9 +117,11 @@ all rules starting with a single bit, which you can browse in the gallery.
 
 ### To-do
 
-- Better output file handling
-- Export to PNG rather than PBM
-- Write Windows CLI
+### Recent Fixes
+- Check for proper extension and add one if not present
+- Add Windows build and CLI
+- Add all 256 images to gallery
+- Improve documentation
 
 ### Help file
 ```
