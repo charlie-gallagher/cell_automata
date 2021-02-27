@@ -97,7 +97,7 @@ output: (null)
 
 This evaluates a line of 50 cells 25 times using rule 26, beginning with a single '1' cell in the center of the line. If you instead want to see what will happen with a random starting position, set `-i 0`. Use `cell --help` to see a help file. The help file, which is also included below, gives a description of the valid arguments along with a description of elementary cellular automata.
 
-If an output file is specified, it is written as a [Raw PBM file](http://netpbm.sourceforge.net/doc/pbm.html). This is easily converted to PNG with ImageMagick, as shown below. The user bears complete responsibility for file naming at the moment, although this is going to change soon. 
+If an output file is specified, it is written as a [Raw PBM file](http://netpbm.sourceforge.net/doc/pbm.html). This is easily converted to PNG with ImageMagick, as shown below. The user bears complete responsibility for file naming at the moment, although this is going to change soon.
 
 
 ### Image Processing
@@ -156,7 +156,7 @@ is timestep zero. Each cell makes a decision about what it will be at the next
 timestep, a '1' or a '0'. It makes this decision by considering itself and its
 two nearest neighbors and consulting a rule such as:
 
-                 v
+         v
 	Situation	010
 	Result  	 0
 
