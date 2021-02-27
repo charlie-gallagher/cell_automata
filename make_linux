@@ -46,6 +46,6 @@ $(OBJDIR):
 # remove object files, keep going if error
 clean:
 	-rm -f $(OBJDIR)/$(SRCDIR)/*.o 
-	-rm -f binman
+	-rm -f cell
 
 

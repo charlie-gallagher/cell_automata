@@ -132,7 +132,7 @@ int carg_check(CARGS *pcargs)
 
 
 	/* Check filename for correctness */
-	if (!file_valid(OUT)) {
+	if (OUT != NULL && !file_valid(OUT)) {
 		printf("adding .pbm to filename\n"); // DELETE ME
 		
 		char *new_filename;
@@ -155,7 +155,7 @@ int carg_check(CARGS *pcargs)
 int file_valid(char *filename) {
 	int len = strlen(filename);
 
-	if (filename[len-1] == 'm' &&
+	if (len > 5 && filename[len-1] == 'm' &&
 	    filename[len-2] == 'b' &&
 	    filename[len-3] == 'p' &&
 	    filename[len-4] == '.')

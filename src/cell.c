@@ -49,7 +49,6 @@ int main(int argc, char **argv) {
 
 
 	free(head);
-	printf("Contents of out: %s\n", OUT);  // DELETE ME
 	if (OUTI)
 		free(OUT);
 
